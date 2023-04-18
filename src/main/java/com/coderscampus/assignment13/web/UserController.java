@@ -40,7 +40,6 @@ public class UserController {
 		if (users.size() == 1) {
 			model.put("user", users.iterator().next());
 		}
-		
 		return "users";
 	}
 	

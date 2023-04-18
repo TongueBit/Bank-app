@@ -27,7 +27,7 @@ public class Address {
 		this.userId = userId;
 	}
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@MapsId
 	@JoinColumn(name="user_id")
 	public User getUser() {
