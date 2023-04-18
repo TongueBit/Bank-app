@@ -6,6 +6,7 @@
 	<body>
 		<h1>Users</h1>
 			<div th:if="${#lists.size(users) == 1}">
+				<form action="" method="post">
 				<div>
 					Username: <input type="text" th:field="${user.username}" />
 				</div>
@@ -15,6 +16,7 @@
 				<div>
 					Full Name: <input type="text" th:field="${user.name}" />
 				</div>
+
 					<hr>
 				<div>
 					Address Line 1: <input type="text" th:field="${user.address.addressLine1}" />
@@ -34,8 +36,9 @@
 				<div>
 					Zip Code: <input type="text" th:field="${user.address.zipCode}" />
 				</div>
-				<form action="" method="post">
-					<input type="submit" value="Update User Account" />
+					<div>
+						<input type="submit" value="Update User Account" />
+					</div>
 				</form>
 				<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">
 					<input type="submit" value="Delete User Account" />

@@ -21,9 +21,7 @@ public class UserController {
 	
 	@GetMapping("/register")
 	public String getCreateUser (ModelMap model) {
-		
 		model.put("user", new User());
-		
 		return "register";
 	}
 	
