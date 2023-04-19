@@ -5,7 +5,14 @@
     <title>Accounts</title>
 </head>
 <body>
-<h1>Accounts</h1>
-
+<h1><span th:text="${account.accountName}"></span></h1>
+<form action="" method="post">
+    <div>
+        Account: <input type="text" th:field="${account.accountName}" />
+    </div>
+    <div>
+        <input type="submit" value="Create New Account"/>
+    </div>
+</form>
 </body>
 </html>

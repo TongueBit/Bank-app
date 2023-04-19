@@ -36,22 +36,22 @@
 				<div>
 					Zip Code: <input type="text" th:field="${user.address.zipCode}" />
 				</div>
-					<div>
-						<input type="submit" value="Update User Account" />
-					</div>
+
+				<div>
+					<input type="submit" value="Update User Account" />
+				</div>
 				</form>
 				<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">
 					<input type="submit" value="Delete User Account" />
 				</form>
 			</div>
 				<hr>
-
-			<div th:if="${#lists.size(users) == 1}">
-				<h2>Accounts</h2>
-				<div th:each="account : ${user.accounts}">
-					<span><a th:href>Account # [[${account.accountId}]]</a></span>
-				</div>
-				<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="get">
+				<div th:if="${#lists.size(users) == 1}" >
+					<h2>Accounts</h2>
+					<div th:each="account : ${user.accounts}">
+						<span><a th:href th:text="${account.accountName}">Account # </a></span>
+					</div>
+				<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="post">
 					<div>
 						<input type="submit" value="Create account" />
 					</div>
@@ -64,7 +64,7 @@
 				<span th:text="${user.name}"></span><br/>
 				<span th:text="${user.password}"></span>
 				<div th:each="account : ${user.accounts}">
-					<span><a th:href>Account # [[${account.accountId}]]</a></span>
+					<span><a th:href>[[${account.accountName}]]</a></span>
 				</div>
 				<hr/>
 			</div>

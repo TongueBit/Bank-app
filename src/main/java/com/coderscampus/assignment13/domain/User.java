@@ -69,6 +69,10 @@ public class User {
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
+	public void addAccount(Account account) { accounts.add(account); }
+	public int numOfAccounts() {
+		System.out.println(accounts.size());
+		return accounts.size(); }
 	@OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
 	public Address getAddress() {
 		return address;

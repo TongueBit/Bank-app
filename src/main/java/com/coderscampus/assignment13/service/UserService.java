@@ -15,8 +15,6 @@ import com.coderscampus.assignment13.repository.AccountRepository;
 import com.coderscampus.assignment13.repository.AddressRepository;
 import com.coderscampus.assignment13.repository.UserRepository;
 
-import javax.persistence.EntityManager;
-
 @Service
 public class UserService {
 	
@@ -57,31 +55,33 @@ public class UserService {
 	}
 
 	public User saveUser(User user) {
-		if (user.getUserId() == null) {
-			Account checking = new Account();
-			checking.setAccountName("Checking Account");
-			checking.getUsers().add(user);
-			Account savings = new Account();
-			savings.setAccountName("Savings Account");
-			savings.getUsers().add(user);
-			user.getAccounts().add(checking);
-			user.getAccounts().add(savings);
-			accountRepo.save(checking);
-			accountRepo.save(savings);
-		} else {
-			if (user.getAddress() != null) {
-				Address address = user.getAddress();
-				user.setAddress(address);
-				address.setUser(user);
-				address.setUserId(user.getUserId());
-				addressRepo.save(address);
-			}
+		if (user.getAddress() != null) {
+			Address address = user.getAddress();
+			user.setAddress(address);
+			address.setUser(user);
+			address.setUserId(user.getUserId());
+			addressRepo.save(address);
 		}
 		return userRepo.save(user);
 	}
 
 	public void delete(Long userId) {
-
 		userRepo.deleteById(userId);
+	}
+
+	public Account saveNewAccount(Long userId) {
+		Account account = new Account();
+		User user = findById(userId);
+		account.setAccountName("Account #" + (user.numOfAccounts()+1));
+        account.addUser(user);
+		user.addAccount(account);
+        return accountRepo.save(account);
+	}
+	public Account saveExistingAccount(Account account, Long userId) {
+		account.setAccountName(account.getAccountName());
+		return accountRepo.save(account);
+	}
+	public Account findAccountById(Long accountId) {
+		return accountRepo.getOne(accountId);
 	}
 }
