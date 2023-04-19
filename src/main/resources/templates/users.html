@@ -16,8 +16,8 @@
 				<div>
 					Full Name: <input type="text" th:field="${user.name}" />
 				</div>
-
 					<hr>
+		<h2>Address</h2>
 				<div>
 					Address Line 1: <input type="text" th:field="${user.address.addressLine1}" />
 				</div>
@@ -44,16 +44,29 @@
 					<input type="submit" value="Delete User Account" />
 				</form>
 			</div>
-		
-		<div th:each="user : ${users}" th:if="${#lists.size(users) != 1}">
-		    <span></span><a th:href="@{/users/{userId}(userId=${user.userId})}">[[${user.userId}]]</a><br/>
-			<span th:text="${user.username}"></span><br/>
-			<span th:text="${user.name}"></span><br/>
-			<span th:text="${user.password}"></span>
-			<div th:each="account : ${user.accounts}">
-				<span><a th:href>Account # [[${account.accountId}]]</a></span>
+				<hr>
+
+			<div th:if="${#lists.size(users) == 1}">
+				<h2>Accounts</h2>
+				<div th:each="account : ${user.accounts}">
+					<span><a th:href>Account # [[${account.accountId}]]</a></span>
+				</div>
+				<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="get">
+					<div>
+						<input type="submit" value="Create account" />
+					</div>
+				</form>
 			</div>
-			<hr/>
-		</div>
+
+			<div th:each="user : ${users}" th:if="${#lists.size(users) != 1}">
+				<span></span><a th:href="@{/users/{userId}(userId=${user.userId})}">[[${user.userId}]]</a><br/>
+				<span th:text="${user.username}"></span><br/>
+				<span th:text="${user.name}"></span><br/>
+				<span th:text="${user.password}"></span>
+				<div th:each="account : ${user.accounts}">
+					<span><a th:href>Account # [[${account.accountId}]]</a></span>
+				</div>
+				<hr/>
+			</div>
 	</body>
 </html>
