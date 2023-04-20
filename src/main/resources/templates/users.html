@@ -49,13 +49,14 @@
 				<div th:if="${#lists.size(users) == 1}" >
 					<h2>Accounts</h2>
 					<div th:each="account : ${user.accounts}">
-						<span><a th:href th:text="${account.accountName}">Account # </a></span>
+						<span><a th:href="@{/users/{userId}/accounts/{accountId}(userId=${user.userId}, accountId=${account.accountId})}" th:text="${account.accountName}">Account # </a></span>
 					</div>
 				<form th:action="@{/users/{userId}/accounts(userId=${user.userId})}" method="post">
 					<div>
 						<input type="submit" value="Create account" />
 					</div>
 				</form>
+					<a href="/users">Back</a>
 			</div>
 
 			<div th:each="user : ${users}" th:if="${#lists.size(users) != 1}">
@@ -64,7 +65,7 @@
 				<span th:text="${user.name}"></span><br/>
 				<span th:text="${user.password}"></span>
 				<div th:each="account : ${user.accounts}">
-					<span><a th:href>[[${account.accountName}]]</a></span>
+					<span><a th:href="@{/users/{userId}/accounts/{accountId}(userId=${user.userId}, accountId=${account.accountId})}">[[${account.accountName}]]</a></span>
 				</div>
 				<hr/>
 			</div>
