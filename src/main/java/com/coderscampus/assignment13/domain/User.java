@@ -1,24 +1,18 @@
 package com.coderscampus.assignment13.domain;
 
+import com.coderscampus.assignment13.repository.AddressRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity // Class name = User, DB Table name = user
 @Table(name = "users")
 public class User {
+
 	private Long userId;
 	private String username;
 	private String password;
@@ -72,7 +66,7 @@ public class User {
 	public void addAccount(Account account) { accounts.add(account); }
 	public int numOfAccounts() {
 		return accounts.size(); }
-	@OneToOne(mappedBy = "user",  cascade = CascadeType.PERSIST)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.MERGE)
 	public Address getAddress() {
 		return address;
 	}
@@ -107,4 +101,5 @@ public class User {
 			return false;
 		return true;
 	}
+
 }

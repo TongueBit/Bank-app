@@ -55,7 +55,8 @@ public class UserService {
 	}
 
 	public void delete(Long userId) {
-		userRepo.deleteById(userId);
+		addressRepo.deleteByUserId(userId);
+		userRepo.deleteUserById(userId);
 	}
 
 	public Account saveNewAccount(Long userId) {
